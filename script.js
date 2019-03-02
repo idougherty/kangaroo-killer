@@ -9,6 +9,12 @@ var g = new HT.Grid(canvas.width, canvas.height);
 
 var activeHexes = g.Hexes.filter((_hex, idx) => map.includes(idx));
 
+g.Hexes.forEach((hex, i) => {
+	if (!activeHexes.includes(hex)) {
+		g.Hexes.splice(i, 1);
+	}
+})
+
 function drawHexes() {
   c.clearRect(0, 0, canvas.width, canvas.height);
   for (const hex of activeHexes) {
@@ -101,3 +107,4 @@ function drawHex(/* HT.Hexagon */ hex) {
     );
   }
 }
+

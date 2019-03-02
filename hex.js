@@ -62,6 +62,10 @@ HT.Line = function(x1, y1, x2, y2) {
  * @constructor
  */
 HT.Hexagon = function(id, x, y) {
+  this.data = {
+    workers: 0,
+	type: "none"
+  };
   this.Points = []; //Polygon Base
   var x1 = null;
   var y1 = null;
