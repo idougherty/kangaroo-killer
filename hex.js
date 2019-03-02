@@ -130,14 +130,12 @@ HT.Hexagon.prototype.isInBounds = function(x, y) {
  * @return {boolean}
  */
 HT.Hexagon.prototype.isInHexBounds = function(/*Point*/ p) {
-  if (
+  return (
     this.TopLeftPoint.X < p.X &&
     this.TopLeftPoint.Y < p.Y &&
     p.X < this.BottomRightPoint.X &&
     p.Y < this.BottomRightPoint.Y
-  )
-    return true;
-  return false;
+  );
 };
 
 //grabbed from:
@@ -158,14 +156,14 @@ HT.Hexagon.prototype.Contains = function(/*Point*/ p) {
     var i,
       j = 0;
     for (i = 0, j = this.Points.length - 1; i < this.Points.length; j = i++) {
-      var iP = this.Points[i];
-      var jP = this.Points[j];
+      var a = this.Points[i];
+      var b = this.Points[j];
       if (
-        ((iP.Y <= p.Y && p.Y < jP.Y) || (jP.Y <= p.Y && p.Y < iP.Y)) &&
+        ((p.Y > a.Y && p.Y < b.Y) || (p.Y > b.Y && p.Y < a.Y)) &&
         //((iP.Y > p.Y) != (jP.Y > p.Y))
-        p.X < ((jP.X - iP.X) * (p.Y - iP.Y)) / (jP.Y - iP.Y) + iP.X
+        p.X < ((b.X - a.X) * (b.Y - a.Y)) / (b.Y - a.Y) + a.X
       ) {
-        isIn = !isIn;
+        isIn = true;
       }
     }
   }

@@ -17,8 +17,8 @@ function drawHexes() {
 }
 drawHexes();
 
-canvas.addEventListener("click", ({ clientX, clientY }) => {
-  var idx = g.GetHexIdxAt(new HT.Point(clientX, clientY));
+canvas.addEventListener("click", ({ layerX, layerY }) => {
+  var idx = g.GetHexIdxAt(new HT.Point(layerX, layerY));
   g.Hexes[idx].selected = true;
   drawHexes();
 });
