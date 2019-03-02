@@ -4,25 +4,25 @@ var WH_RATIO = 1.1547005383792515290182975610039;
 var SIDE_LENGTH = 20;
 
 function findHexWithSideLengthZAndRatio() {
-  var z = SIDE_LENGTH;
-  var r = WH_RATIO;
+	var z = SIDE_LENGTH;
+	var r = WH_RATIO;
 
-  //solve quadratic
-  var r2 = Math.pow(r, 2);
-  var a = (1 + r2) / r2;
-  var b = z / r2;
-  var c = ((1 - 4.0 * r2) / (4.0 * r2)) * Math.pow(z, 2);
+	//solve quadratic
+	var r2 = Math.pow(r, 2);
+	var a = (1 + r2) / r2;
+	var b = z / r2;
+	var c = ((1 - 4.0 * r2) / (4.0 * r2)) * Math.pow(z, 2);
 
-  var x = (-b + Math.sqrt(Math.pow(b, 2) - 4.0 * a * c)) / (2.0 * a);
+	var x = (-b + Math.sqrt(Math.pow(b, 2) - 4.0 * a * c)) / (2.0 * a);
 
-  var y = (2.0 * x + z) / (2.0 * r);
+	var y = (2.0 * x + z) / (2.0 * r);
 
-  var width = 2.0 * x + z;
-  var height = 2.0 * y;
+	var width = 2.0 * x + z;
+	var height = 2.0 * y;
 
-  HT.Hexagon.Static.WIDTH = width;
-  HT.Hexagon.Static.HEIGHT = height;
-  HT.Hexagon.Static.SIDE = z;
+	HT.Hexagon.Static.WIDTH = width;
+	HT.Hexagon.Static.HEIGHT = height;
+	HT.Hexagon.Static.SIDE = z;
 }
 
 var HT = HT || {};
@@ -31,8 +31,8 @@ var HT = HT || {};
  * @constructor
  */
 HT.Point = function(x, y) {
-  this.X = x;
-  this.Y = y;
+	this.X = x;
+	this.Y = y;
 };
 
 /**
@@ -40,10 +40,10 @@ HT.Point = function(x, y) {
  * @constructor
  */
 HT.Rectangle = function(x, y, width, height) {
-  this.X = x;
-  this.Y = y;
-  this.Width = width;
-  this.Height = height;
+	this.X = x;
+	this.Y = y;
+	this.Width = width;
+	this.Height = height;
 };
 
 /**
@@ -51,10 +51,10 @@ HT.Rectangle = function(x, y, width, height) {
  * @constructor
  */
 HT.Line = function(x1, y1, x2, y2) {
-  this.X1 = x1;
-  this.Y1 = y1;
-  this.X2 = x2;
-  this.Y2 = y2;
+	this.X1 = x1;
+	this.Y1 = y1;
+	this.X2 = x2;
+	this.Y2 = y2;
 };
 
 /**
@@ -62,60 +62,60 @@ HT.Line = function(x1, y1, x2, y2) {
  * @constructor
  */
 HT.Hexagon = function(id, x, y) {
-  this.data = {
-    workers: 0,
-	type: "none"
-  };
-  this.Points = []; //Polygon Base
-  var x1 = null;
-  var y1 = null;
-  if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal) {
-    x1 = (HT.Hexagon.Static.WIDTH - HT.Hexagon.Static.SIDE) / 2;
-    y1 = HT.Hexagon.Static.HEIGHT / 2;
-    this.Points.push(new HT.Point(x1 + x, y));
-    this.Points.push(new HT.Point(x1 + HT.Hexagon.Static.SIDE + x, y));
-    this.Points.push(new HT.Point(HT.Hexagon.Static.WIDTH + x, y1 + y));
-    this.Points.push(
-      new HT.Point(
-        x1 + HT.Hexagon.Static.SIDE + x,
-        HT.Hexagon.Static.HEIGHT + y
-      )
-    );
-    this.Points.push(new HT.Point(x1 + x, HT.Hexagon.Static.HEIGHT + y));
-    this.Points.push(new HT.Point(x, y1 + y));
-  } else {
-    x1 = HT.Hexagon.Static.WIDTH / 2;
-    y1 = (HT.Hexagon.Static.HEIGHT - HT.Hexagon.Static.SIDE) / 2;
-    this.Points.push(new HT.Point(x1 + x, y));
-    this.Points.push(new HT.Point(HT.Hexagon.Static.WIDTH + x, y1 + y));
-    this.Points.push(
-      new HT.Point(HT.Hexagon.Static.WIDTH + x, y1 + HT.Hexagon.Static.SIDE + y)
-    );
-    this.Points.push(new HT.Point(x1 + x, HT.Hexagon.Static.HEIGHT + y));
-    this.Points.push(new HT.Point(x, y1 + HT.Hexagon.Static.SIDE + y));
-    this.Points.push(new HT.Point(x, y1 + y));
-  }
+	this.data = {
+		workers: 0,
+		type: "none"
+	};
+	this.Points = []; //Polygon Base
+	var x1 = null;
+	var y1 = null;
+	if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal) {
+		x1 = (HT.Hexagon.Static.WIDTH - HT.Hexagon.Static.SIDE) / 2;
+		y1 = HT.Hexagon.Static.HEIGHT / 2;
+		this.Points.push(new HT.Point(x1 + x, y));
+		this.Points.push(new HT.Point(x1 + HT.Hexagon.Static.SIDE + x, y));
+		this.Points.push(new HT.Point(HT.Hexagon.Static.WIDTH + x, y1 + y));
+		this.Points.push(
+			new HT.Point(
+				x1 + HT.Hexagon.Static.SIDE + x,
+				HT.Hexagon.Static.HEIGHT + y
+			)
+		);
+		this.Points.push(new HT.Point(x1 + x, HT.Hexagon.Static.HEIGHT + y));
+		this.Points.push(new HT.Point(x, y1 + y));
+	} else {
+		x1 = HT.Hexagon.Static.WIDTH / 2;
+		y1 = (HT.Hexagon.Static.HEIGHT - HT.Hexagon.Static.SIDE) / 2;
+		this.Points.push(new HT.Point(x1 + x, y));
+		this.Points.push(new HT.Point(HT.Hexagon.Static.WIDTH + x, y1 + y));
+		this.Points.push(
+			new HT.Point(HT.Hexagon.Static.WIDTH + x, y1 + HT.Hexagon.Static.SIDE + y)
+		);
+		this.Points.push(new HT.Point(x1 + x, HT.Hexagon.Static.HEIGHT + y));
+		this.Points.push(new HT.Point(x, y1 + HT.Hexagon.Static.SIDE + y));
+		this.Points.push(new HT.Point(x, y1 + y));
+	}
 
-  this.Id = id;
+	this.Id = id;
 
-  this.x = x;
-  this.y = y;
-  this.x1 = x1;
-  this.y1 = y1;
+	this.x = x;
+	this.y = y;
+	this.x1 = x1;
+	this.y1 = y1;
 
-  this.TopLeftPoint = new HT.Point(this.x, this.y);
-  this.BottomRightPoint = new HT.Point(
-    this.x + HT.Hexagon.Static.WIDTH,
-    this.y + HT.Hexagon.Static.HEIGHT
-  );
-  this.MidPoint = new HT.Point(
-    this.x + HT.Hexagon.Static.WIDTH / 2,
-    this.y + HT.Hexagon.Static.HEIGHT / 2
-  );
+	this.TopLeftPoint = new HT.Point(this.x, this.y);
+	this.BottomRightPoint = new HT.Point(
+		this.x + HT.Hexagon.Static.WIDTH,
+		this.y + HT.Hexagon.Static.HEIGHT
+	);
+	this.MidPoint = new HT.Point(
+		this.x + HT.Hexagon.Static.WIDTH / 2,
+		this.y + HT.Hexagon.Static.HEIGHT / 2
+	);
 
-  this.P1 = new HT.Point(x + x1, y + y1);
+	this.P1 = new HT.Point(x + x1, y + y1);
 
-  this.selected = false;
+	this.selected = false;
 };
 
 /**
@@ -124,7 +124,7 @@ HT.Hexagon = function(id, x, y) {
  * @return {boolean}
  */
 HT.Hexagon.prototype.isInBounds = function(x, y) {
-  return this.Contains(new HT.Point(x, y));
+	return this.Contains(new HT.Point(x, y));
 };
 
 /**
@@ -134,12 +134,12 @@ HT.Hexagon.prototype.isInBounds = function(x, y) {
  * @return {boolean}
  */
 HT.Hexagon.prototype.isInHexBounds = function(/*Point*/ p) {
-  return (
-    this.TopLeftPoint.X < p.X &&
-    this.TopLeftPoint.Y < p.Y &&
-    p.X < this.BottomRightPoint.X &&
-    p.Y < this.BottomRightPoint.Y
-  );
+	return (
+		this.TopLeftPoint.X < p.X &&
+		this.TopLeftPoint.Y < p.Y &&
+		p.X < this.BottomRightPoint.X &&
+		p.Y < this.BottomRightPoint.Y
+	);
 };
 
 //grabbed from:
@@ -153,25 +153,25 @@ HT.Hexagon.prototype.isInHexBounds = function(/*Point*/ p) {
  * @return {boolean}
  */
 HT.Hexagon.prototype.Contains = function(/*Point*/ p) {
-  var isIn = false;
-  if (this.isInHexBounds(p)) {
-    //turn our absolute point into a relative point for comparing with the polygon's points
-    //var pRel = new HT.Point(p.X - this.x, p.Y - this.y);
-    var i,
-      j = 0;
-    for (i = 0, j = this.Points.length - 1; i < this.Points.length; j = i++) {
-      var a = this.Points[i];
-      var b = this.Points[j];
-      if (
-        ((p.Y > a.Y && p.Y < b.Y) || (p.Y > b.Y && p.Y < a.Y)) &&
-        //((iP.Y > p.Y) != (jP.Y > p.Y))
-        p.X < ((b.X - a.X) * (b.Y - a.Y)) / (b.Y - a.Y) + a.X
-      ) {
-        isIn = true;
-      }
-    }
-  }
-  return isIn;
+	var isIn = false;
+	if (this.isInHexBounds(p)) {
+		//turn our absolute point into a relative point for comparing with the polygon's points
+		//var pRel = new HT.Point(p.X - this.x, p.Y - this.y);
+		var i,
+			j = 0;
+		for (i = 0, j = this.Points.length - 1; i < this.Points.length; j = i++) {
+			var a = this.Points[i];
+			var b = this.Points[j];
+			if (
+				((p.Y > a.Y && p.Y < b.Y) || (p.Y > b.Y && p.Y < a.Y)) &&
+				//((iP.Y > p.Y) != (jP.Y > p.Y))
+				p.X < ((b.X - a.X) * (b.Y - a.Y)) / (b.Y - a.Y) + a.X
+			) {
+				isIn = true;
+			}
+		}
+	}
+	return isIn;
 };
 
 /**
@@ -182,25 +182,25 @@ HT.Hexagon.prototype.Contains = function(/*Point*/ p) {
  * @return {number} the distance in pixels
  */
 HT.Hexagon.prototype.distanceFromMidPoint = function(/*Point*/ p) {
-  // Pythagoras' Theorem: Square of hypotenuse = sum of squares of other two sides
-  var deltaX = this.MidPoint.X - p.X;
-  var deltaY = this.MidPoint.Y - p.Y;
+	// Pythagoras' Theorem: Square of hypotenuse = sum of squares of other two sides
+	var deltaX = this.MidPoint.X - p.X;
+	var deltaY = this.MidPoint.Y - p.Y;
 
-  // squaring so don't need to worry about square-rooting a negative number
-  return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+	// squaring so don't need to worry about square-rooting a negative number
+	return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 };
 
 HT.Hexagon.Orientation = {
-  Normal: 0,
-  Rotated: 1
+	Normal: 0,
+	Rotated: 1
 };
 
 HT.Hexagon.Static = {
-  HEIGHT: 91.14378277661477,
-  WIDTH: 91.14378277661477,
-  SIDE: 50.0,
-  ORIENTATION: HT.Hexagon.Orientation.Normal,
-  DRAWSTATS: false
+	HEIGHT: 91.14378277661477,
+	WIDTH: 91.14378277661477,
+	SIDE: 50.0,
+	ORIENTATION: HT.Hexagon.Orientation.Normal,
+	DRAWSTATS: false
 }; //hexagons will have 25 unit sides for now
 
 /**
@@ -208,82 +208,82 @@ HT.Hexagon.Static = {
  * @constructor
  */
 HT.Grid = function(/*double*/ width, /*double*/ height) {
-  this.Hexes = [];
-  //setup a dictionary for use later for assigning the X or Y CoOrd (depending on Orientation)
-  var HexagonsByXOrYCoOrd = {}; //Dictionary<int, List<Hexagon>>
+	this.Hexes = [];
+	//setup a dictionary for use later for assigning the X or Y CoOrd (depending on Orientation)
+	var HexagonsByXOrYCoOrd = {}; //Dictionary<int, List<Hexagon>>
 
-  var row = 0;
-  var y = 0.0;
-  while (y + HT.Hexagon.Static.HEIGHT <= height) {
-    var col = 0;
+	var row = 0;
+	var y = 0.0;
+	while (y + HT.Hexagon.Static.HEIGHT <= height) {
+		var col = 0;
 
-    var offset = 0.0;
-    if (row % 2 == 1) {
-      if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
-        offset =
-          (HT.Hexagon.Static.WIDTH - HT.Hexagon.Static.SIDE) / 2 +
-          HT.Hexagon.Static.SIDE;
-      else offset = HT.Hexagon.Static.WIDTH / 2;
-      col = 1;
-    }
+		var offset = 0.0;
+		if (row % 2 == 1) {
+			if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
+				offset =
+					(HT.Hexagon.Static.WIDTH - HT.Hexagon.Static.SIDE) / 2 +
+					HT.Hexagon.Static.SIDE;
+			else offset = HT.Hexagon.Static.WIDTH / 2;
+			col = 1;
+		}
 
-    var x = offset;
-    while (x + HT.Hexagon.Static.WIDTH <= width) {
-      var hexId = this.GetHexId(row, col);
-      var h = new HT.Hexagon(hexId, x, y);
+		var x = offset;
+		while (x + HT.Hexagon.Static.WIDTH <= width) {
+			var hexId = this.GetHexId(row, col);
+			var h = new HT.Hexagon(hexId, x, y);
 
-      var pathCoOrd = col;
-      if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
-        h.PathCoOrdX = col;
-      //the column is the x coordinate of the hex, for the y coordinate we need to get more fancy
-      else {
-        h.PathCoOrdY = row;
-        pathCoOrd = row;
-      }
+			var pathCoOrd = col;
+			if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
+				h.PathCoOrdX = col;
+			//the column is the x coordinate of the hex, for the y coordinate we need to get more fancy
+			else {
+				h.PathCoOrdY = row;
+				pathCoOrd = row;
+			}
 
-      this.Hexes.push(h);
+			this.Hexes.push(h);
 
-      if (!HexagonsByXOrYCoOrd[pathCoOrd]) HexagonsByXOrYCoOrd[pathCoOrd] = [];
-      HexagonsByXOrYCoOrd[pathCoOrd].push(h);
+			if (!HexagonsByXOrYCoOrd[pathCoOrd]) HexagonsByXOrYCoOrd[pathCoOrd] = [];
+			HexagonsByXOrYCoOrd[pathCoOrd].push(h);
 
-      col += 2;
-      if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
-        x += HT.Hexagon.Static.WIDTH + HT.Hexagon.Static.SIDE;
-      else x += HT.Hexagon.Static.WIDTH;
-    }
-    row++;
-    if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
-      y += HT.Hexagon.Static.HEIGHT / 2;
-    else
-      y +=
-        (HT.Hexagon.Static.HEIGHT - HT.Hexagon.Static.SIDE) / 2 +
-        HT.Hexagon.Static.SIDE;
-  }
+			col += 2;
+			if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
+				x += HT.Hexagon.Static.WIDTH + HT.Hexagon.Static.SIDE;
+			else x += HT.Hexagon.Static.WIDTH;
+		}
+		row++;
+		if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
+			y += HT.Hexagon.Static.HEIGHT / 2;
+		else
+			y +=
+				(HT.Hexagon.Static.HEIGHT - HT.Hexagon.Static.SIDE) / 2 +
+				HT.Hexagon.Static.SIDE;
+	}
 
-  //finally go through our list of hexagons by their x co-ordinate to assign the y co-ordinate
-  for (var coOrd1 in HexagonsByXOrYCoOrd) {
-    var hexagonsByXOrY = HexagonsByXOrYCoOrd[coOrd1];
-    var coOrd2 = Math.floor(coOrd1 / 2) + (coOrd1 % 2);
-    for (var i in hexagonsByXOrY) {
-      var h = hexagonsByXOrY[i]; //Hexagon
-      if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
-        h.PathCoOrdY = coOrd2++;
-      else h.PathCoOrdX = coOrd2++;
-    }
-  }
+	//finally go through our list of hexagons by their x co-ordinate to assign the y co-ordinate
+	for (var coOrd1 in HexagonsByXOrYCoOrd) {
+		var hexagonsByXOrY = HexagonsByXOrYCoOrd[coOrd1];
+		var coOrd2 = Math.floor(coOrd1 / 2) + (coOrd1 % 2);
+		for (var i in hexagonsByXOrY) {
+			var h = hexagonsByXOrY[i]; //Hexagon
+			if (HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
+				h.PathCoOrdY = coOrd2++;
+			else h.PathCoOrdX = coOrd2++;
+		}
+	}
 };
 
 HT.Grid.Static = { Letters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 
 HT.Grid.prototype.GetHexId = function(row, col) {
-  var letterIndex = row;
-  var letters = "";
-  while (letterIndex > 25) {
-    letters = HT.Grid.Static.Letters[letterIndex % 26] + letters;
-    letterIndex -= 26;
-  }
+	var letterIndex = row;
+	var letters = "";
+	while (letterIndex > 25) {
+		letters = HT.Grid.Static.Letters[letterIndex % 26] + letters;
+		letterIndex -= 26;
+	}
 
-  return HT.Grid.Static.Letters[letterIndex] + letters + (col + 1);
+	return HT.Grid.Static.Letters[letterIndex] + letters + (col + 1);
 };
 
 /**
@@ -292,17 +292,17 @@ HT.Grid.prototype.GetHexId = function(row, col) {
  * @return {HT.Hexagon}
  */
 HT.Grid.prototype.GetHexAt = function(/*Point*/ p) {
-  var idx = this.GetHexIdxAt(p);
-  return idx && this.Hexes[idx];
+	var idx = this.GetHexIdxAt(p);
+	return idx && this.Hexes[idx];
 };
 
 HT.Grid.prototype.GetHexIdxAt = function(/*Point*/ p) {
-  for (var h in this.Hexes) {
-    if (this.Hexes[h].Contains(p)) {
-      return h;
-    }
-  }
-  return null;
+	for (var h in this.Hexes) {
+		if (this.Hexes[h].Contains(p)) {
+			return h;
+		}
+	}
+	return null;
 };
 
 /**
@@ -311,11 +311,11 @@ HT.Grid.prototype.GetHexIdxAt = function(/*Point*/ p) {
  * @return {number}
  */
 HT.Grid.prototype.GetHexDistance = function(/*Hexagon*/ h1, /*Hexagon*/ h2) {
-  //a good explanation of this calc can be found here:
-  //http://playtechs.blogspot.com/2007/04/hex-grids.html
-  var deltaX = h1.PathCoOrdX - h2.PathCoOrdX;
-  var deltaY = h1.PathCoOrdY - h2.PathCoOrdY;
-  return (Math.abs(deltaX) + Math.abs(deltaY) + Math.abs(deltaX - deltaY)) / 2;
+	//a good explanation of this calc can be found here:
+	//http://playtechs.blogspot.com/2007/04/hex-grids.html
+	var deltaX = h1.PathCoOrdX - h2.PathCoOrdX;
+	var deltaY = h1.PathCoOrdY - h2.PathCoOrdY;
+	return (Math.abs(deltaX) + Math.abs(deltaY) + Math.abs(deltaX - deltaY)) / 2;
 };
 
 /**
@@ -324,12 +324,12 @@ HT.Grid.prototype.GetHexDistance = function(/*Hexagon*/ h1, /*Hexagon*/ h2) {
  * @return {HT.Hexagon}
  */
 HT.Grid.prototype.GetHexById = function(id) {
-  for (var i in this.Hexes) {
-    if (this.Hexes[i].Id == id) {
-      return this.Hexes[i];
-    }
-  }
-  return null;
+	for (var i in this.Hexes) {
+		if (this.Hexes[i].Id == id) {
+			return this.Hexes[i];
+		}
+	}
+	return null;
 };
 
 /**
@@ -340,22 +340,22 @@ HT.Grid.prototype.GetHexById = function(id) {
  * @return {HT.Hexagon}
  */
 HT.Grid.prototype.GetNearestHex = function(/*Point*/ p) {
-  var distance;
-  var minDistance = Number.MAX_VALUE;
-  var hx = null;
+	var distance;
+	var minDistance = Number.MAX_VALUE;
+	var hx = null;
 
-  // iterate through each hex in the grid
-  for (var h in this.Hexes) {
-    distance = this.Hexes[h].distanceFromMidPoint(p);
+	// iterate through each hex in the grid
+	for (var h in this.Hexes) {
+		distance = this.Hexes[h].distanceFromMidPoint(p);
 
-    if (distance < minDistance) {
-      // if this is the nearest thus far
-      minDistance = distance;
-      hx = this.Hexes[h];
-    }
-  }
+		if (distance < minDistance) {
+			// if this is the nearest thus far
+			minDistance = distance;
+			hx = this.Hexes[h];
+		}
+	}
 
-  return hx;
+	return hx;
 };
 
 findHexWithSideLengthZAndRatio();
