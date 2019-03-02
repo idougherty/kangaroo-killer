@@ -8,10 +8,12 @@ c.fillRect(0, 0, 500, 500);
 
 var g = new HT.Grid(canvas.width, canvas.height);
 
+var activeHexes = g.Hexes.filter((_hex, idx) => map.includes(idx))
+
 function drawHexes(){
 	c.clearRect(0,0,canvas.width, canvas.height);
-	for (const idx of map) {
-		drawHex(g.Hexes[idx])
+	for (const hex of activeHexes) {
+		drawHex(hex)
 	}
 }
 drawHexes()
