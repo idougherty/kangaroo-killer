@@ -689,4 +689,12 @@ g.Hexes.forEach((_hex, i) => {
 
 const gameState = new GameState();
 
-draw();
+const titleImage = new Image();
+titleImage.src = "./assets/titlescreen.png";
+titleImage.addEventListener("load", () => {
+	c.imageSmoothingEnabled = false
+	c.mozImageSmoothingEnabled = false
+	c.drawImage(titleImage, 0, 0, canvas.width, canvas.height)
+})
+
+
