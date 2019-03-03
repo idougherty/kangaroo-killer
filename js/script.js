@@ -218,7 +218,17 @@ function runTurn() {
 	draw();
 }
 
-function chooseGov(gov) {
+function chooseGov(gov) {	
+	gameState.productionModifier = 1;
+	gameState.militaryModifier = 1;
+	gameState.populationModifier = 1;
+	gameState.buildingCostModifier = 1;
+	gameState.foodProductionModifier = 1;
+	gameState.metalProductionModifier = 1;
+	gameState.stoneProductionModifier = 1;
+	gameState.woodProductionModifier = 1;
+	gameState.iqProductionModifier = 1;
+	
 	gameState.govt = gov;
 	switch (gov) {
 		case "democracy":
@@ -235,11 +245,12 @@ function chooseGov(gov) {
 			break;
 		case "communism":
 			gameState.foodProductionModifier = 0.25;
-			gameState.productionModifier = 0.67;
+			gameState.productionModifier = 1.50;
 			break;
 		default:
 			throw new Error("Ugly");
 	}
+	draw();
 }
 
 function updateStats() {
@@ -254,51 +265,56 @@ function updateStats() {
 	govInfo.textContent = gameState.military;
 
 	if (gameState.militaryModifier != 1) {
-		statlist +=
-			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Military Modifier - ' +
+		statlist.innerHTML +='<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Military Modifier - ' +
 			gameState.militaryModifier +
 			"</li>";
 	}
 	if (gameState.populationModifier != 1) {
-		statlist +=
+		statlist.innerHTML +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Population Modifier - ' +
 			gameState.populationModifier +
 			"</li>";
 	}
 	if (gameState.buildingCostModifier != 1) {
-		statlist +=
-			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Building Modifier - ' +
+		statlist.innerHTML +=
+			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Building Cost Modifier - ' +
 			gameState.buildingCostModifier +
 			"</li>";
 	}
 	if (gameState.iqProductionModifier != 1) {
-		statlist +=
+		statlist.innerHTML +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">IQ Modifier - ' +
 			gameState.iqProductionModifier +
 			"</li>";
 	}
 	if (gameState.woodProductionModifier != 1) {
-		statlist +=
+		statlist.innerHTML +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Wood Modifier - ' +
 			gameState.woodProductionModifier +
 			"</li>";
 	}
 	if (gameState.metalProductionModifier != 1) {
-		statlist +=
+		statlist.innerHTML +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Metal Modifier - ' +
 			gameState.metalProductionModifier +
 			"</li>";
 	}
 	if (gameState.foodProductionModifier != 1) {
-		statlist +=
+		statlist.innerHTML +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Food Modifier - ' +
 			gameState.foodProductionModifier +
 			"</li>";
 	}
 	if (gameState.stoneProductionModifier != 1) {
-		statlist +=
+		statlist.innerHTML +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Stone Modifier - ' +
 			gameState.stoneProductionModifier +
+			"</li>";
+	}
+	if (gameState.productionModifier != 1) {
+		statlist.innerHTML +=
+			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Production Modifier - ' +
+			gameState.productionModifier +
 			"</li>";
 	}
 
