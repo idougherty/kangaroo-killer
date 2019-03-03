@@ -43,6 +43,21 @@ function fightBadEv(cost) {
 	}
 }
 
+function killPeople(numToKill) {
+	loop: while (numToKill) {
+		for (const hex of shuffleArray(activeHexes)) {
+			const newToKill = Math.max(0, numToKill - 5);
+			const toKillHere = Math.min(numToKill, 5);
+			const newWorkers = Math.max(0, hex.state.workers - toKillHere);
+			gameState.population = Math.max(0, gameState.population - toKillHere);
+			if (newWorkers === 0) numToKill += toKillHere - hex.state.workers;
+			numToKill = newToKill;
+			hex.state.workers = newWorkers;
+			if (!numToKill) break loop;
+		}
+	}
+}
+
 function shuffleArray(array) {
 	array = array.slice();
 	for (let i = array.length - 1; i > 0; i--) {
@@ -118,18 +133,7 @@ function runTurn() {
 	const newFood = Math.max(0, gameState.food - gameState.population);
 	if (newFood === 0) {
 		let numToKill = gameState.population - gameState.food;
-		loop: while (numToKill) {
-			for (const hex of shuffleArray(activeHexes)) {
-				const newToKill = Math.max(0, numToKill - 5);
-				const toKillHere = Math.min(numToKill, 5);
-				const newWorkers = Math.max(0, hex.state.workers - toKillHere);
-				gameState.population = Math.max(0, gameState.population - toKillHere);
-				if (newWorkers === 0) numToKill += toKillHere - hex.state.workers;
-				numToKill = newToKill;
-				hex.state.workers = newWorkers;
-				if (!numToKill) break loop;
-			}
-		}
+		killPeople(numToKill)
 	}
 	gameState.food = newFood;
 
@@ -184,7 +188,7 @@ function runTurn() {
 				modal.innerHTML = "Giant termites come with a desire to eat wood!  25 percent of wood is lost unless military is at least 10 strong.";
 				break;
 			case "badhawk":
-				if (!fightBadEv(1) && gameState.population) gameState.population -= 1;
+				if (!fightBadEv(1) && gameState.population) killPeople(1);
 				modal.innerHTML = "An evil hawk tries to attack your people!  1 person dies unless military is at least 1 strong.";
 				break;
 			case "prisoners":
@@ -265,54 +269,54 @@ function updateStats() {
 	govInfo.textContent = gameState.military;
 
 	if (gameState.militaryModifier != 1) {
-		statlist.innerHTML +='<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Military Modifier - ' +
+		stat ='<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Military Modifier - ' +
 			gameState.militaryModifier +
 			"</li>";
 	}
 	if (gameState.populationModifier != 1) {
-		statlist.innerHTML +=
+		stat =
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Population Modifier - ' +
 			gameState.populationModifier +
 			"</li>";
 	}
 	if (gameState.buildingCostModifier != 1) {
-		statlist.innerHTML +=
+		stat =
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Building Cost Modifier - ' +
 			gameState.buildingCostModifier +
 			"</li>";
 	}
 	if (gameState.iqProductionModifier != 1) {
-		statlist.innerHTML +=
+		stat =
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">IQ Modifier - ' +
 			gameState.iqProductionModifier +
 			"</li>";
 	}
 	if (gameState.woodProductionModifier != 1) {
-		statlist.innerHTML +=
+		stat =
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Wood Modifier - ' +
 			gameState.woodProductionModifier +
 			"</li>";
 	}
 	if (gameState.metalProductionModifier != 1) {
-		statlist.innerHTML +=
+		stat =
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Metal Modifier - ' +
 			gameState.metalProductionModifier +
 			"</li>";
 	}
 	if (gameState.foodProductionModifier != 1) {
-		statlist.innerHTML +=
+		stat =
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Food Modifier - ' +
 			gameState.foodProductionModifier +
 			"</li>";
 	}
 	if (gameState.stoneProductionModifier != 1) {
-		statlist.innerHTML +=
+		stat =
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Stone Modifier - ' +
 			gameState.stoneProductionModifier +
 			"</li>";
 	}
 	if (gameState.productionModifier != 1) {
-		statlist.innerHTML +=
+		stat =
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Production Modifier - ' +
 			gameState.productionModifier +
 			"</li>";
@@ -481,13 +485,13 @@ class GameState {
 		this.selectedHex = null;
 
 		//materials
-		this.population = 100;
+		this.population = 5;
 		this.employed = 0;
-		this.food = 100;
-		this.wood = 100;
-		this.stone = 100;
-		this.metal = 100;
-		this.iq = 100;
+		this.food = 20;
+		this.wood = 20;
+		this.stone = 20;
+		this.metal = 0;
+		this.iq = 0;
 		this.militaryBuildUp = 0;
 		this.extraMilitary = 0;
 
