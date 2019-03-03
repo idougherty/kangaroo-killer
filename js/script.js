@@ -15,6 +15,7 @@ bnameInfo = document.getElementById("bname");
 unemployedInfo = document.getElementById("unemployed");
 workerWindow = document.getElementById("workerWindow");
 cityHallWindow = document.getElementById("cityHallWindow");
+statlist = document.getElementById("statlist");
 
 const events = [
 	"whale",
@@ -31,7 +32,7 @@ const events = [
 ];
 
 function fightBadEv(cost) {
-	if (gameState.military >= cost) {
+	if (gameState.military * gameState.militaryModifier >= cost) {
 		gameState.military -= cost;
 		return true;
 	} else {
@@ -55,22 +56,22 @@ function runTurn() {
 	for (const hex of activeHexes) {
 		switch (hex.state.type) {
 			case "farm":
-				gameState.food += 5*hex.state.workers/3*gameState.foodProductionModifier;
+				gameState.food += 5*hex.state.workers/3*gameState.foodProductionModifier*gameState.productionModifier;
 				break;
 			case "factory":
-				gameState.metal += 5*hex.state.workers/3*gameState.metalProductionModifier;
+				gameState.metal += 5*hex.state.workers/3*gameState.metalProductionModifier*gameState.productionModifier;
 				break;
 			case "mine":
-				gameState.stone += 5*hex.state.workers/3*gameState.stoneProductionModifier;
+				gameState.stone += 5*hex.state.workers/3*gameState.stoneProductionModifier*gameState.productionModifier;
 				break;
 			case "mill":
-				gameState.wood += 5*hex.state.workers/3*gameState.woodProductionModifier;
+				gameState.wood += 5*hex.state.workers/3*gameState.woodProductionModifier*gameState.productionModifier;
 				break;
 			case "school":
-				gameState.iq += 5*hex.state.workers/3*gameState.iqProductionModifier;
+				gameState.iq += 5*hex.state.workers/3*gameState.iqProductionModifier*gameState.productionModifier;
 				break;
 			case "university":
-				gameState.iq += 10*hex.state.workers/5*gameState.iqProductionModifier;
+				gameState.iq += 10*hex.state.workers/5*gameState.iqProductionModifier*gameState.productionModifier;
 				break;
 			case "barracks":
 				gameState.militaryBuildUp = Math.min(50, gameState.militaryBuildUp + 5);
@@ -179,16 +180,63 @@ function runTurn() {
 	draw();
 }
 
+function chooseGov(gov) {
+	gameState.govt = gov;
+	switch(gov) {
+		case "democracy":
+			gameState.militaryModifier = .75;
+			gameState.populationModifier = 1.25;
+			break;
+		case "monarchy":
+			gameState.militaryModifier = 1.50;
+			gameState.buildingCostModifier = 1.50;
+			break;
+		case "theocracy":
+			gameState.iqProductionModifier = 0.50;
+			gameState.buildingCostModifier = .67;
+			break;
+		case "communism":
+			gameState.foodProductionModifier = 0.25;
+			gameState.productionModifier = .67;
+			break;
+		default:
+			throw new Error("Ugly");
+	}
+}
+
 function updateStats() {
 	foodInfo.innerHTML = gameState.food;
 	stoneInfo.innerHTML = gameState.stone;
 	woodInfo.innerHTML = gameState.wood;
 	metalInfo.innerHTML = gameState.metal;
 	iqInfo.innerHTML = gameState.iq;
-	populationInfo.innerHTML = gameState.population;
-	militaryInfo.innerHTML = gameState.military;
-	turnInfo.innerHTML = gameState.turnCount;
-	govInfo.innerHTML = gameState.govt;
+	statlist.innerHTML = '<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters"><h3>Civilization</h3></li><li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Turn - '+gameState.turnCount+'</li><li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Population - '+gameState.population+'</li><li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Military - '+gameState.military+'</li><li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Government - '+gameState.govt+'</li>';
+	
+	if(gameState.militaryModifier != 1) {
+		statlist += '<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Military Modifier - '+gameState.militaryModifier+'</li>'
+	}
+	if(gameState.populationModifier != 1) {
+		statlist += '<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Population Modifier - '+gameState.populationModifier+'</li>'
+	}
+	if(gameState.buildingCostModifier != 1) {
+		statlist += '<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Building Modifier - '+gameState.buildingCostModifier+'</li>'
+	}
+	if(gameState.iqProductionModifier != 1) {
+		statlist += '<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">IQ Modifier - '+gameState.iqProductionModifier+'</li>'
+	}
+	if(gameState.woodProductionModifier != 1) {
+		statlist += '<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Wood Modifier - '+gameState.woodProductionModifier+'</li>'
+	}
+	if(gameState.metalProductionModifier != 1) {
+		statlist += '<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Metal Modifier - '+gameState.metalProductionModifier+'</li>'
+	}
+	if(gameState.foodProductionModifier != 1) {
+		statlist += '<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Food Modifier - '+gameState.foodProductionModifier+'</li>'
+	}
+	if(gameState.stoneProductionModifier != 1) {
+		statlist += '<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Stone Modifier - '+gameState.stoneProductionModifier+'</li>'
+	}
+	
 	actionInfo.innerHTML = gameState.actionPoints;
 	if (gameState.selectedHex != null) {
 		var bname = g.Hexes[gameState.selectedHex].state.type;
@@ -434,113 +482,113 @@ function buildButton(building) {
 		var isGucci = false;
 		switch (building) {
 			case "farm":
-				if (gameState.stone >= 10 && gameState.wood >= 10) {
+				if (gameState.stone >= 10*gameState.buildingCostModifier && gameState.wood >= 10*gameState.buildingCostModifier) {
 					isGucci = true;
-					gameState.stone -= 10;
-					gameState.wood -= 10;
+					gameState.stone -= 10*gameState.buildingCostModifier;
+					gameState.wood -= 10*gameState.buildingCostModifier;
 				}
 				break;
 			case "factory":
 				if (
-					gameState.stone >= 40 &&
-					gameState.iq >= 15 &&
-					gameState.population >= 50
+					gameState.stone >= 40*gameState.buildingCostModifier &&
+					gameState.iq >= 15*gameState.buildingCostModifier &&
+					gameState.population >= 50*gameState.buildingCostModifier
 				) {
 					isGucci = true;
-					gameState.stone -= 40;
-					gameState.iq -= 15;
+					gameState.stone -= 40*gameState.buildingCostModifier;
+					gameState.iq -= 15*gameState.buildingCostModifier;
 				}
 				break;
 			case "mine":
-				if (gameState.wood >= 10) {
+				if (gameState.wood >= 10*gameState.buildingCostModifier) {
 					isGucci = true;
-					gameState.wood -= 10;
+					gameState.wood -= 10*gameState.buildingCostModifier;
 				}
 				break;
 			case "mill":
-				if (gameState.stone >= 10) {
+				if (gameState.stone >= 10*gameState.buildingCostModifier) {
 					isGucci = true;
-					gameState.stone -= 10;
+					gameState.stone -= 10*gameState.buildingCostModifier;
 				}
 				break;
 			case "school":
 				if (
-					gameState.stone >= 20 &&
-					gameState.wood >= 10 &&
-					gameState.population >= 30
+					gameState.stone >= 20*gameState.buildingCostModifier &&
+					gameState.wood >= 10*gameState.buildingCostModifier &&
+					gameState.population >= 30*gameState.buildingCostModifier
 				) {
 					isGucci = true;
-					gameState.stone -= 20;
-					gameState.wood -= 10;
+					gameState.stone -= 20*gameState.buildingCostModifier;
+					gameState.wood -= 10*gameState.buildingCostModifier;
 				}
 				break;
 			case "university":
 				if (
-					gameState.stone >= 30 &&
-					gameState.metal >= 30 &&
-					gameState.iq >= 15
+					gameState.stone >= 30*gameState.buildingCostModifier &&
+					gameState.metal >= 30*gameState.buildingCostModifier &&
+					gameState.iq >= 15*gameState.buildingCostModifier
 				) {
 					isGucci = true;
-					gameState.stone -= 20;
-					gameState.wood -= 10;
-					gameState.iq -= 10;
+					gameState.stone -= 20*gameState.buildingCostModifier;
+					gameState.wood -= 10*gameState.buildingCostModifier;
+					gameState.iq -= 10*gameState.buildingCostModifier;
 				}
 				break;
 			case "barracks":
 				if (
-					gameState.stone >= 30 &&
-					gameState.iq >= 15 &&
-					gameState.metal >= 20 &&
-					gameState.population >= 30
+					gameState.stone >= 30*gameState.buildingCostModifier &&
+					gameState.iq >= 15*gameState.buildingCostModifier &&
+					gameState.metal >= 20*gameState.buildingCostModifier &&
+					gameState.population >= 30*gameState.buildingCostModifier
 				) {
 					isGucci = true;
-					gameState.stone -= 30;
-					gameState.iq -= 15;
-					gameState.metal -= 20;
+					gameState.stone -= 30*gameState.buildingCostModifier;
+					gameState.iq -= 15*gameState.buildingCostModifier;
+					gameState.metal -= 20*gameState.buildingCostModifier;
 				}
 				break;
 			case "simpleHousing":
-				if (gameState.stone >= 10 && gameState.wood >= 10) {
+				if (gameState.stone >= 10*gameState.buildingCostModifier && gameState.wood >= 10*gameState.buildingCostModifier) {
 					isGucci = true;
-					gameState.stone -= 10;
+					gameState.stone -= 10*gameState.buildingCostModifier;
 					gameState.wood -= 10;
 				}
 				break;
 			case "superHousing":
 				if (
-					gameState.stone >= 40 &&
-					gameState.iq >= 15 &&
-					gameState.metal >= 30
+					gameState.stone >= 40*gameState.buildingCostModifier &&
+					gameState.iq >= 15*gameState.buildingCostModifier &&
+					gameState.metal >= 30*gameState.buildingCostModifier
 				) {
 					isGucci = true;
-					gameState.stone -= 40;
-					gameState.iq -= 15;
-					gameState.metal -= 30;
+					gameState.stone -= 40*gameState.buildingCostModifier;
+					gameState.iq -= 15*gameState.buildingCostModifier;
+					gameState.metal -= 30*gameState.buildingCostModifier;
 				}
 				break;
 			case "cityHall":
 				if (
-					gameState.stone >= 15 &&
-					gameState.wood >= 15 &&
-					gameState.population >= 20
+					gameState.stone >= 15*gameState.buildingCostModifier &&
+					gameState.wood >= 15*gameState.buildingCostModifier &&
+					gameState.population >= 20*gameState.buildingCostModifier
 				) {
 					isGucci = true;
-					gameState.stone -= 15;
-					gameState.wood -= 15;
+					gameState.stone -= 15*gameState.buildingCostModifier;
+					gameState.wood -= 15*gameState.buildingCostModifier;
 				}
 				break;
 			case "nuclearFacilities":
 				if (
-					gameState.stone >= 60 &&
-					gameState.iq >= 70 &&
-					gameState.metal >= 90 &&
-					gameState.wood >= 20 &&
-					gameState.population >= 60
+					gameState.stone >= 60*gameState.buildingCostModifier &&
+					gameState.iq >= 70*gameState.buildingCostModifier &&
+					gameState.metal >= 90*gameState.buildingCostModifier &&
+					gameState.wood >= 20*gameState.buildingCostModifier &&
+					gameState.population >= 60*gameState.buildingCostModifier
 				) {
 					isGucci = true;
-					gameState.stone -= 30;
-					gameState.iq -= 15;
-					gameState.metal -= 20;
+					gameState.stone -= 30*gameState.buildingCostModifier;
+					gameState.iq -= 15*gameState.buildingCostModifier;
+					gameState.metal -= 20*gameState.buildingCostModifier;
 				}
 				break;
 			default:
