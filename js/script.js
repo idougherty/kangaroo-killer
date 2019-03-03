@@ -267,61 +267,65 @@ function updateStats() {
 	turnInfo.textContent = gameState.turnCount;
 	militaryInfo.textContent = gameState.military;
 	govInfo.textContent = gameState.military;
-
+	
+	stat = ""
+	
 	if (gameState.militaryModifier != 1) {
-		stat ='<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Military Modifier - ' +
+		stat +='<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Military Modifier - ' +
 			gameState.militaryModifier +
 			"</li>";
 	}
 	if (gameState.populationModifier != 1) {
-		stat =
+		stat +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Population Modifier - ' +
 			gameState.populationModifier +
 			"</li>";
 	}
 	if (gameState.buildingCostModifier != 1) {
-		stat =
+		stat +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Building Cost Modifier - ' +
 			gameState.buildingCostModifier +
 			"</li>";
 	}
 	if (gameState.iqProductionModifier != 1) {
-		stat =
+		stat +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">IQ Modifier - ' +
 			gameState.iqProductionModifier +
 			"</li>";
 	}
 	if (gameState.woodProductionModifier != 1) {
-		stat =
+		stat +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Wood Modifier - ' +
 			gameState.woodProductionModifier +
 			"</li>";
 	}
 	if (gameState.metalProductionModifier != 1) {
-		stat =
+		stat +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Metal Modifier - ' +
 			gameState.metalProductionModifier +
 			"</li>";
 	}
 	if (gameState.foodProductionModifier != 1) {
-		stat =
+		stat +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Food Modifier - ' +
 			gameState.foodProductionModifier +
 			"</li>";
 	}
 	if (gameState.stoneProductionModifier != 1) {
-		stat =
+		stat +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Stone Modifier - ' +
 			gameState.stoneProductionModifier +
 			"</li>";
 	}
 	if (gameState.productionModifier != 1) {
-		stat =
+		stat +=
 			'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Production Modifier - ' +
 			gameState.productionModifier +
 			"</li>";
 	}
-
+	
+	statlist.innerHTML = stat;
+	
 	actionInfo.innerHTML = gameState.actionPoints;
 	if (gameState.selectedHex != null) {
 		var bname = g.Hexes[gameState.selectedHex].state.type;
