@@ -1,442 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, shrink-to-fit=no"
-		/>
-		<meta name="description" content="" />
-		<meta name="author" content="" />
 
-		<title>Kangaroo Killer</title>
+<head>
 
-		<!-- Bootstrap core CSS -->
-		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-		<style>
-			.build-btn {
-				border-radius: 3px;
-				color: white;
-				text-align: center;
-			}
-		</style>
-	</head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-	<body>
-		<!-- Page Content -->
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-5"></div>
-				<div class="col-4">
-					<h1>
-						Kangaroo Killer
-					</h1>
-				</div>
-				<div class="col-3"></div>
+	<title>Kangaroo Killer</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+	.build-btn {
+		border-radius: 3px; color:white; text-align: center;
+	}
+	</style>
+</head>
+
+<body>
+
+	<!-- Page Content -->
+	<div class="container-fluid">
+		<div class = "row">
+			<div class ="col-5">
 			</div>
-			<div class="row">
-				<div class="col-3">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item py-1" ng-repeat="i in filters">
-							<h3>Buildings</h3>
-						</li>
-						<li class="list-group-item py-2" ng-repeat="i in filters">
-							<div class="dropright">
-								<button
-									class="btn btn-danger dropdown-toggle"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									style="background-color: #8B4513; color: white; "
-								>
-									Lumbermill
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<div style="margin-left: 10px">
-										Produces 5 wood.<br />
-										Cost:<br />-10 stone
-									</div>
-									<a class="dropdown-item" href="#"
-										><div class="build-btn" style="background-color: #8B4513;">
-											Build
-										</div></a
-									>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item py-2" ng-repeat="i in filters">
-							<div class="btn-group dropright">
-								<button
-									type="button"
-									class="btn btn-text-white-50 bg-dark dropdown-toggle"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									style="color: white"
-								>
-									Mine
-								</button>
-								<div class="dropdown-menu">
-									<div style="margin-left: 10px">
-										Produces 5 stone.<br />Cost:<br />-10 wood
-									</div>
-									<a class="dropdown-item" href="#"
-										><div class="build-btn bg-dark">Build</div></a
-									>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item py-2" ng-repeat="i in filters">
-							<div class="btn-group dropright">
-								<button
-									type="button"
-									class="btn btn-danger dropdown-toggle"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									style="color: white; background-color: brown"
-								>
-									Farm
-								</button>
-								<div class="dropdown-menu">
-									<div style="margin-left: 10px">
-										Produces 5 food.<br />Cost:<br />-10 wood<br />-10 stone
-									</div>
-									<a class="dropdown-item" href="#"
-										><div class="build-btn" style="background-color: brown;">
-											Build
-										</div></a
-									>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item py-2" ng-repeat="i in filters">
-							<div class="dropright">
-								<button
-									class="btn btn-warning dropdown-toggle"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									style="background-color: orange"
-								>
-									Simple House
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<div style="margin-left: 10px">
-										Adds 1 population.<br />
-										Cost:<br />-10 stone<br />-10 wood<br />
-									</div>
-									<a class="dropdown-item" href="#"
-										><div class="build-btn" style="background-color:orange;">
-											Build
-										</div></a
-									>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item py-2" ng-repeat="i in filters">
-							<div class="dropright">
-								<button
-									class="btn btn-white dropdown-toggle"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									style="background-color: white; color: black"
-								>
-									City Hall
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<div style="margin-left: 10px; margin-right: 10px">
-										Provides a bonus depending on<br />
-										the government type.<br />Cost: <br />-15 stone<br />-15
-										wood<br />-20 population<br />
-									</div>
-									<a class="dropdown-item" href="#"
-										><div class="build-btn bg-white text-dark">Build</div></a
-									>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item py-2" ng-repeat="i in filters">
-							<div class="dropright">
-								<button
-									class="btn btn-success dropdown-toggle"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									style="background-color: green; color: white"
-								>
-									School
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<div style="margin-left: 10px; margin-right: 10px">
-										Produces 5 IQ.<br />Cost: <br />-20 stone<br />-10 wood<br />-30
-										population
-									</div>
-									<a class="dropdown-item" href="#"
-										><div class="build-btn" style="background-color:green;">
-											Build
-										</div></a
-									>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item py-2" ng-repeat="i in filters">
-							<div class="dropright">
-								<button
-									class="btn btn-muted dropdown-toggle"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									style="background-color: lightgrey; color: black"
-								>
-									Factory
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<div style="margin-left: 10px; margin-right: 10px">
-										Produces 5 Metal.<br />Cost: <br />-15 IQ<br />-40 stone<br />-50
-										population
-									</div>
-									<a class="dropdown-item" href="#"
-										><div
-											class="build-btn"
-											style="background-color: lightgrey;"
-										>
-											Build
-										</div></a
-									>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item py-2" ng-repeat="i in filters">
-							<div class="dropup">
-								<button
-									class="btn btn-danger dropdown-toggle"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									style="background-color: red; color: white"
-								>
-									Barracks
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<div style="margin-left: 10px; margin-right: 10px">
-										Can be assigned people,<br />
-										increasing military buildup once<br />for every 1 person
-										assigned.<br />Cost: <br />-15 IQ<br />-30 stone<br />-30
-										population<br />-20 metal
-									</div>
-									<a class="dropdown-item" href="#"
-										><div class="build-btn" style="background-color: red;">
-											Build
-										</div></a
-									>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item py-2" ng-repeat="i in filters">
-							<div class="dropup">
-								<button
-									class="btn btn-warning dropdown-toggle"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									style="background-color: #CC5500; color: white"
-								>
-									Super Housing
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<div style="margin-left: 10px; margin-right: 10px">
-										Adds 3 population.<br />Cost: <br />-15 IQ<br />-40 stone<br />-20
-										population<br />-30 metal
-									</div>
-									<a class="dropdown-item" href="#"
-										><div class="build-btn" style="background-color: #CC5500;">
-											Build
-										</div></a
-									>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item py-2" ng-repeat="i in filters">
-							<div class="dropup">
-								<button
-									class="btn btn-success dropdown-toggle"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									style="background-color: #013220; color: white"
-								>
-									University
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<div style="margin-left: 10px; margin-right: 10px">
-										Produces 10 IQ.<br />Cost: <br />-15 IQ<br />-30 stone<br />-30
-										metal
-									</div>
-									<a class="dropdown-item" href="#"
-										><div class="build-btn" style="background-color: #013220;">
-											Build
-										</div></a
-									>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item py-2" ng-repeat="i in filters" s>
-							<div class="dropup">
-								<button
-									class="btn btn-black dropdown-toggle"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									style="background-color: #000000; color: white"
-								>
-									Nuclear Launch Site
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<div style="margin-left: 10px; margin-right: 10px">
-										Allows for retaliation against New Zealand.<br />Cost:
-										<br />-70 IQ<br />-60 stone<br />-90 metal<br />-20 wood<br />-60
-										population
-									</div>
-									<a class="dropdown-item" href="#"
-										><div class="build-btn" style="background-color: #000000;">
-											Build
-										</div></a
-									>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="col-1"></div>
-				<div class="col-6">
-					<canvas id="canvas" width="500" height="500"></canvas>
-				</div>
-				<div class="col-2">
-					<ul class="list-group list-group-flush">
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							<h3>Resources</h3>
-						</li>
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							Food
-							<span class="badge badge-primary badge-pill">14</span>
-						</li>
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							Wood
-							<span class="badge badge-primary badge-pill">2</span>
-						</li>
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							Stone
-							<span class="badge badge-primary badge-pill">1</span>
-						</li>
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							Metal
-							<span class="badge badge-primary badge-pill">1</span>
-						</li>
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							IQ
-							<span class="badge badge-primary badge-pill">1</span>
-						</li>
-					</ul>
-					<ul class="list-group list-group-flush">
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							<h3>Civilization</h3>
-						</li>
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							Turn:
-							<span class="badge badge-primary badge-pill">14</span>
-						</li>
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							Population:
-							<span class="badge badge-primary badge-pill">2</span>
-						</li>
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							Military
-							<span class="badge badge-primary badge-pill">1</span>
-						</li>
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							Government:
-							<span class="badge badge-primary badge-pill">1</span>
-						</li>
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							Positive Modifier
-							<span class="badge badge-primary badge-pill">1</span>
-						</li>
-						<li
-							class="list-group-item d-flex justify-content-between align-items-center py-2"
-							ng-repeat="i in filters"
-						>
-							Negative Modifier
-							<span class="badge badge-primary badge-pill">1</span>
-						</li>
-					</ul>
-				</div>
+			<div class = "col-4">
+				<h1>
+					Kangaroo Killer
+				</h1>
 			</div>
-			<div class="row"></div>
+			<div class = "col-3">
+			</div>
 		</div>
+		<div class="row">
+			<div class = "col-3">
+				<ul class="list-group list-group-flush">
+					<li class = "list-group-item py-1" ng-repeat="i in filters">
+						<h3>Buildings</h3>
+					</li>
+					<li class="list-group-item py-2" ng-repeat="i in filters">
+						<div class="dropright">
+							<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style = "background-color: #8B4513; color: white; ">
+								Lumbermill
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div style="margin-left: 10px">
+									Produces 5 wood.<br> Cost:<br>-10 stone
+								</div>
+								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: #8B4513;">Build</div></a>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item py-2" ng-repeat="i in filters">
+						<div class="btn-group dropright">
+							<button type="button" class="btn btn-text-white-50 bg-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style = "color: white">
+								Mine
+							</button>
+							<div class="dropdown-menu">
+							<div style="margin-left: 10px">
+								Produces 5 stone.<br>Cost:<br>-10 wood
+							</div>
+							<a class="dropdown-item" href="#"><div class="build-btn bg-dark">Build</div></a>
+							</div>
+						</div>
+					</li>
+					<li class = "list-group-item py-2" ng-repeat="i in filters">
+						<div class="btn-group dropright">
+							<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style = "color: white; background-color: brown">
+								Farm
+							</button>
+							<div class="dropdown-menu">
+							<div style="margin-left: 10px">
+								Produces 5 food.<br>Cost:<br>-10 wood<br>-10 stone
+							</div>
+							<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: brown;">Build</div></a>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item py-2" ng-repeat="i in filters">
+						<div class="dropright">
+							<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style = "background-color: orange">
+								Simple House
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div style="margin-left: 10px">
+									Adds 1 population.<br> Cost:<br>-10 stone<br>-10 wood<br>
+								</div>
+								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color:orange;">Build</div></a>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item py-2" ng-repeat="i in filters">
+						<div class="dropright">
+							<button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style = "background-color: white; color: black">
+								City Hall
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div style="margin-left: 10px; margin-right: 10px">
+									Provides a bonus depending on<br> the government type.<br>Cost: <br>-15 stone<br>-15 wood<br>-20 population<br>
+								</div>
+								<a class="dropdown-item" href="#"><div class="build-btn bg-white text-dark">Build</div></a>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item py-2" ng-repeat="i in filters">
+						<div class="dropright">
+							<button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style = "background-color: green; color: white">
+								School
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div style="margin-left: 10px; margin-right: 10px">
+									Produces 5 IQ.<br>Cost: <br>-20 stone<br>-10 wood<br>-30 population
+								</div>
+								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color:green;">Build</div></a>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item py-2" ng-repeat="i in filters">
+						<div class="dropright">
+							<button class="btn btn-muted dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style = "background-color: lightgrey; color: black">
+								Factory
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div style="margin-left: 10px; margin-right: 10px">
+									Produces 5 Metal.<br>Cost: <br>-15 IQ<br>-40 stone<br>-50 population
+								</div>
+								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: lightgrey;">Build</div></a>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item py-2" ng-repeat="i in filters">
+						<div class="dropup">
+							<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style = "background-color: red; color: white">
+								Barracks
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div style="margin-left: 10px; margin-right: 10px">
+									Can be assigned people,<br> increasing military buildup once<br>for every 1 person assigned.<br>Cost: <br>-15 IQ<br>-30 stone<br>-30 population<br>-20 metal
+								</div>
+								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: red;">Build</div></a>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item py-2" ng-repeat="i in filters">
+						<div class="dropup">
+							<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style = "background-color: #CC5500; color: white">
+								Super Housing
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div style="margin-left: 10px; margin-right: 10px">
+									Adds 3 population.<br>Cost: <br>-15 IQ<br>-40 stone<br>-20 population<br>-30 metal
+								</div>
+								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: #CC5500;">Build</div></a>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item py-2" ng-repeat="i in filters">
+						<div class="dropup">
+							<button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style = "background-color: #013220; color: white">
+								University
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div style="margin-left: 10px; margin-right: 10px">
+									Produces 10 IQ.<br>Cost: <br>-15 IQ<br>-30 stone<br>-30 metal
+								</div>
+								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: #013220;">Build</div></a>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item py-2" ng-repeat="i in filters"s>
+						<div class="dropup">
+							<button class="btn btn-black dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style = "background-color: #000000; color: white">
+								Nuclear Launch Site
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div style="margin-left: 10px; margin-right: 10px">
+									Allows for retaliation against New Zealand.<br>Cost: <br>-70 IQ<br>-60 stone<br>-90 metal<br>-20 wood<br>-60 population
+								</div>
+								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: #000000;">Build</div></a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class = "col-1">
+			</div>
+			<div class="col-6">
+				<canvas id="canvas" width="500" height="500"></canvas>
+				<br>
+				<div>
+					<img src ="https://static.stereogum.com/uploads/2015/09/Nicholas-Fraser-Why-You-Always-Lying-video-640x449.jpg" alt="Why you always lyin" style = "width: 100px; height: 100px; float: left;">
+					<div class="btn-group" role="group" aria-label="Building Buttons Stuffs" id="#button-group" style="float: left; padding: 10px">
+						<button type="button" class="btn btn-secondary">-</button>
+						<a style = "margin-left: 10px; margin-right: 10px; margin-top: 10px">0</a>       
+						<button type="button" class="btn btn-secondary">+</button>
+					</div>
+					<a style="float: left; padding: 10px; color: black">Insert Building Name Here<br>Unemployed: (insert un # here)</a>
+					<br>
+				</div>
+			</div>
+			<div class = "col-2">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						<h3>Resources</h3>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						Food
+						<span class="badge badge-primary badge-pill">14</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						Wood
+						<span class="badge badge-primary badge-pill">2</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						Stone
+						<span class="badge badge-primary badge-pill">1</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						Metal
+						<span class="badge badge-primary badge-pill">1</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						IQ
+						<span class="badge badge-primary badge-pill">1</span>
+					</li>
+				</ul>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						<h3>Civilization</h3>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						Turn -
+						<span class="badge badge-primary badge-pill">14</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						Population -
+						<span class="badge badge-primary badge-pill">2</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						Military - 
+						<span class="badge badge-primary badge-pill">1</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						Government -  
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						Positive Modifier
+						<span class="badge badge-primary badge-pill">1</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
+						Negative Modifier
+						<span class="badge badge-primary badge-pill">1</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-		<!-- Bootstrap core JavaScript -->
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<script src="js/main.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="js/main.js"></script>
 
-		<script src="js/data.js"></script>
-		<script src="js/hex.js"></script>
-		<script src="js/script.js"></script>
-	</body>
+	<script src="js/data.js"></script>
+	<script src="js/hex.js"></script>
+	<script src="js/script.js"></script>
+
+</body>
+
 </html>
