@@ -49,7 +49,7 @@
 								<div style="margin-left: 10px">
 									Produces 5 wood.<br> Cost:<br>-10 stone
 								</div>
-								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: #8B4513;">Build</div></a>
+								<a class="dropdown-item" href="#" onclick="buildButton('mill')"><div class="build-btn" style="background-color: #8B4513;">Build</div></a>
 							</div>
 						</div>
 					</li>
@@ -62,7 +62,7 @@
 							<div style="margin-left: 10px">
 								Produces 5 stone.<br>Cost:<br>-10 wood
 							</div>
-							<a class="dropdown-item" href="#"><div class="build-btn bg-dark">Build</div></a>
+							<a class="dropdown-item" href="#" onclick="buildButton('mine')"><div class="build-btn bg-dark">Build</div></a>
 							</div>
 						</div>
 					</li>
@@ -75,7 +75,7 @@
 							<div style="margin-left: 10px">
 								Produces 5 food.<br>Cost:<br>-10 wood<br>-10 stone
 							</div>
-							<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: brown;">Build</div></a>
+							<a class="dropdown-item" href="#" onclick="buildButton('farm')"><div class="build-btn" style="background-color: brown;">Build</div></a>
 							</div>
 						</div>
 					</li>
@@ -88,7 +88,7 @@
 								<div style="margin-left: 10px">
 									Adds 1 population.<br> Cost:<br>-10 stone<br>-10 wood<br>
 								</div>
-								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color:orange;">Build</div></a>
+								<a class="dropdown-item" href="#" onclick="buildButton('simpleHousing')"><div class="build-btn" style="background-color:orange;">Build</div></a>
 							</div>
 						</div>
 					</li>
@@ -101,7 +101,7 @@
 								<div style="margin-left: 10px; margin-right: 10px">
 									Provides a bonus depending on<br> the government type.<br>Cost: <br>-15 stone<br>-15 wood<br>-20 population<br>
 								</div>
-								<a class="dropdown-item" href="#"><div class="build-btn bg-white text-dark">Build</div></a>
+								<a class="dropdown-item" href="#" onclick="buildButton('cityHall')"><div class="build-btn bg-white text-dark">Build</div></a>
 							</div>
 						</div>
 					</li>
@@ -114,7 +114,7 @@
 								<div style="margin-left: 10px; margin-right: 10px">
 									Produces 5 IQ.<br>Cost: <br>-20 stone<br>-10 wood<br>-30 population
 								</div>
-								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color:green;">Build</div></a>
+								<a class="dropdown-item" href="#" onclick="buildButton('school')"><div class="build-btn" style="background-color:green;">Build</div></a>
 							</div>
 						</div>
 					</li>
@@ -127,7 +127,7 @@
 								<div style="margin-left: 10px; margin-right: 10px">
 									Produces 5 Metal.<br>Cost: <br>-15 IQ<br>-40 stone<br>-50 population
 								</div>
-								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: lightgrey;">Build</div></a>
+								<a class="dropdown-item" href="#" onclick="buildButton('factory')"><div class="build-btn" style="background-color: lightgrey;">Build</div></a>
 							</div>
 						</div>
 					</li>
@@ -140,7 +140,7 @@
 								<div style="margin-left: 10px; margin-right: 10px">
 									Can be assigned people,<br> increasing military buildup once<br>for every 1 person assigned.<br>Cost: <br>-15 IQ<br>-30 stone<br>-30 population<br>-20 metal
 								</div>
-								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: red;">Build</div></a>
+								<a class="dropdown-item" href="#" onclick="buildButton('barracks')"><div class="build-btn" style="background-color: red;">Build</div></a>
 							</div>
 						</div>
 					</li>
@@ -153,7 +153,7 @@
 								<div style="margin-left: 10px; margin-right: 10px">
 									Adds 3 population.<br>Cost: <br>-15 IQ<br>-40 stone<br>-20 population<br>-30 metal
 								</div>
-								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: #CC5500;">Build</div></a>
+								<a class="dropdown-item" href="#" onclick="buildButton('superHousing')"><div class="build-btn" style="background-color: #CC5500;">Build</div></a>
 							</div>
 						</div>
 					</li>
@@ -166,7 +166,7 @@
 								<div style="margin-left: 10px; margin-right: 10px">
 									Produces 10 IQ.<br>Cost: <br>-15 IQ<br>-30 stone<br>-30 metal
 								</div>
-								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: #013220;">Build</div></a>
+								<a class="dropdown-item" href="#" onclick="buildButton('university')"><div class="build-btn" style="background-color: #013220;">Build</div></a>
 							</div>
 						</div>
 					</li>
@@ -179,7 +179,7 @@
 								<div style="margin-left: 10px; margin-right: 10px">
 									Allows for retaliation against New Zealand.<br>Cost: <br>-70 IQ<br>-60 stone<br>-90 metal<br>-20 wood<br>-60 population
 								</div>
-								<a class="dropdown-item" href="#"><div class="build-btn" style="background-color: #000000;">Build</div></a>
+								<a class="dropdown-item" href="#" onclick="buildButton('nuclearFacilities')"><div class="build-btn" style="background-color: #000000;">Build</div></a>
 							</div>
 						</div>
 					</li>
@@ -190,15 +190,42 @@
 			<div class="col-6">
 				<canvas id="canvas" width="500" height="500"></canvas>
 				<br>
-				<div>
-					<img src ="https://static.stereogum.com/uploads/2015/09/Nicholas-Fraser-Why-You-Always-Lying-video-640x449.jpg" alt="Why you always lyin" style = "width: 100px; height: 100px; float: left;">
-					<div class="btn-group" role="group" aria-label="Building Buttons Stuffs" id="#button-group" style="float: left; padding: 10px">
-						<button type="button" class="btn btn-secondary">-</button>
-						<a style = "margin-left: 10px; margin-right: 10px; margin-top: 10px">0</a>       
-						<button type="button" class="btn btn-secondary">+</button>
+				<div style="display: flex;">
+					<img src ="https://static.stereogum.com/uploads/2015/09/Nicholas-Fraser-Why-You-Always-Lying-video-640x449.jpg" alt="Why you always lyin" style = "width: 150px; height: 150px; float: left;">
+					
+					<div style="padding-left: 20px">
+						<p style="padding: 10px; color: black; margin: 0;"><span id="bname">Building Name:</span></p>
+						<div class="btn-group" role="group" aria-label="Building Buttons Stuffs" id="#button-group" style="padding: 10px">
+							<button type="button" class="btn btn-secondary" onclick="moveWorkers(-1)">-</button>
+							<a style = "margin-left: 10px; margin-right: 10px; margin-top: 10px"><span id="workers">0</span></a>       
+							<button type="button" class="btn btn-secondary" onclick="moveWorkers(1)">+</button>
+						</div>
+						<p style="padding: 10px; color: black">Unemployed: <span id="unemployed">0</span></p>
 					</div>
-					<a style="float: left; padding: 10px; color: black">Insert Building Name Here<br>Unemployed: (insert un # here)</a>
-					<br>
+					
+					<div style="padding-left: 30px">
+						<p style="padding: 10px 0px; color: black; margin: 0;">Action Points: <span id="action-points"></span></p>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#endTurnModal" onclick="runTurn();">
+						End Turn
+						</button>
+						<div class="modal fade" id="endTurnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+							<div class="modal-content">
+							  <div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								  <span aria-hidden="true">&times;</span>
+								</button>
+							  </div>
+							  <div class="modal-body">
+							  </div>
+							  <div class="modal-footer">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class = "col-2">
@@ -208,23 +235,23 @@
 					</li>
 					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
 						Food
-						<span class="badge badge-primary badge-pill">14</span>
+						<span class="badge badge-primary badge-pill" id="food">5</span>
 					</li>
 					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
 						Wood
-						<span class="badge badge-primary badge-pill">2</span>
+						<span class="badge badge-primary badge-pill" id="wood">0</span>
 					</li>
 					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
 						Stone
-						<span class="badge badge-primary badge-pill">1</span>
+						<span class="badge badge-primary badge-pill" id="stone">0</span>
 					</li>
 					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
 						Metal
-						<span class="badge badge-primary badge-pill">1</span>
+						<span class="badge badge-primary badge-pill" id="metal">0</span>
 					</li>
 					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
 						IQ
-						<span class="badge badge-primary badge-pill">1</span>
+						<span class="badge badge-primary badge-pill" id="iq">0</span>
 					</li>
 				</ul>
 				<ul class="list-group list-group-flush">
@@ -233,26 +260,27 @@
 					</li>
 					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
 						Turn -
-						<span class="badge badge-primary badge-pill">14</span>
+						<span class="badge badge-primary badge-pill" id="turn">1</span>
 					</li>
 					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
 						Population -
-						<span class="badge badge-primary badge-pill">2</span>
+						<span class="badge badge-primary badge-pill" id="population">0</span>
 					</li>
 					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
 						Military - 
-						<span class="badge badge-primary badge-pill">1</span>
+						<span class="badge badge-primary badge-pill" id="military">0</span>
 					</li>
 					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
 						Government -  
+						<span class="badge badge-primary badge-pill" id="government">Insert Gov Type Here</span>
 					</li>
 					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
 						Positive Modifier
-						<span class="badge badge-primary badge-pill">1</span>
+						<span class="badge badge-primary badge-pill" id="positive">0</span>
 					</li>
 					<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">
 						Negative Modifier
-						<span class="badge badge-primary badge-pill">1</span>
+						<span class="badge badge-primary badge-pill" id="negative">0</span>
 					</li>
 				</ul>
 			</div>
