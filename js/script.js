@@ -332,10 +332,16 @@ function updateStats() {
 			university:	"./assets/university.png",
 			cityHall: "./assets/city_hall_building.png",
 			nuclearFacilities: "./assets/nukenukenuke.png",
-			mine: "./assets/mine.png"
+			mine: "./assets/mine.png",
 		}[bname];
 		buildingPic.src = picID
-		if(bname == "none" || bname == "simpleHousing" || bname == "superHousing") {
+		if (bname == "none") {
+			buildingPic.style.visibility = "hidden"
+		} else {
+			buildingPic.style.visibility = "visible"
+
+		}
+		if(bname == "none") {
 			cityHallWindow.style.visibility = "hidden";
 			cityHallWindow.style.position = "absolute";
 			workerWindow.style.visibility = "hidden";
