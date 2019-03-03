@@ -13,6 +13,8 @@ actionInfo = document.getElementById("action-points");
 workerInfo = document.getElementById("workers");
 bnameInfo = document.getElementById("bname");
 unemployedInfo = document.getElementById("unemployed");
+workerWindow = document.getElementById("workerWindow");
+cityHallWindow = document.getElementById("cityHallWindow");
 
 const events = [
 	"whale",
@@ -53,28 +55,28 @@ function runTurn() {
 	for (const hex of activeHexes) {
 		switch (hex.state.type) {
 			case "farm":
-				gameState.food += (5 * hex.state.workers) / 3;
+				gameState.food += 5*hex.state.workers/3*gameState.foodProductionModifier;
 				break;
 			case "factory":
-				gameState.metal += (5 * hex.state.workers) / 3;
+				gameState.metal += 5*hex.state.workers/3*gameState.metalProductionModifier;
 				break;
 			case "mine":
-				gameState.stone += (5 * hex.state.workers) / 3;
+				gameState.stone += 5*hex.state.workers/3*gameState.stoneProductionModifier;
 				break;
 			case "mill":
-				gameState.wood += (5 * hex.state.workers) / 3;
+				gameState.wood += 5*hex.state.workers/3*gameState.woodProductionModifier;
 				break;
 			case "school":
-				gameState.iq += (5 * hex.state.workers) / 3;
+				gameState.iq += 5*hex.state.workers/3*gameState.iqProductionModifier;
 				break;
 			case "university":
-				gameState.iq += (10 * hex.state.workers) / 5;
+				gameState.iq += 10*hex.state.workers/5*gameState.iqProductionModifier;
 				break;
 			case "barracks":
 				gameState.militaryBuildUp = Math.min(50, gameState.militaryBuildUp + 5);
 				break;
 			case "simpleHousing":
-				gameState.population += 1;
+				gameState.population += 1*gameState.populationModifier;
 				break;
 			case "superHousing":
 				gameState.population += 3;
@@ -190,10 +192,25 @@ function updateStats() {
 	actionInfo.innerHTML = gameState.actionPoints;
 	if (gameState.selectedHex != null) {
 		var bname = g.Hexes[gameState.selectedHex].state.type;
-		bnameInfo.innerHTML =
-			bname.charAt(0).toUpperCase() + bname.substring(1, bname.length) + ":";
-		workerInfo.innerHTML = g.Hexes[gameState.selectedHex].state.workers;
-		unemployedInfo.innerHTML = gameState.population - gameState.employed;
+		if(bname == "none" || bname == "simpleHousing" || bname == "superHousing") {
+			cityHallWindow.style.visibility = "hidden";
+			cityHallWindow.style.position = "absolute";
+			workerWindow.style.visibility = "hidden";
+			workerWindow.style.position = "absolute";
+		} else if(bname == "cityHall") {
+			cityHallWindow.style.visibility = "visible";
+			cityHallWindow.style.position = "static";
+			workerWindow.style.visibility = "hidden";
+			workerWindow.style.position = "absolute";
+		} else {
+			cityHallWindow.style.visibility = "hidden";
+			cityHallWindow.style.position = "absolute";
+			workerWindow.style.visibility = "visible";
+			workerWindow.style.position = "static";
+			bnameInfo.innerHTML = bname.charAt(0).toUpperCase()+bname.substring(1, bname.length)+":";
+			workerInfo.innerHTML = g.Hexes[gameState.selectedHex].state.workers;
+			unemployedInfo.innerHTML = gameState.population - gameState.employed;
+		}
 	}
 }
 
@@ -347,19 +364,29 @@ class GameState {
 		this.actionPoints = 3;
 		this.turnCount = 1;
 		this.govt = "anarchy";
-		this.productionModifier = 1;
 		this.selectedHex = null;
 
 		//materials
-		this.population = 5;
+		this.population = 100;
 		this.employed = 0;
-		this.food = 10;
-		this.wood = 10;
-		this.stone = 10;
-		this.metal = 0;
-		this.iq = 0;
+		this.food = 100;
+		this.wood = 100;
+		this.stone = 100;
+		this.metal = 100;
+		this.iq = 100;
 		this.militaryBuildUp = 0;
 		this.extraMilitary = 0;
+		
+		//modifiers
+		this.productionModifier = 1;
+		this.militaryModifier = 1;
+		this.populationModifier = 1;
+		this.buildingCostModifier = 1;
+		this.foodProductionModifier = 1;
+		this.metalProductionModifier = 1;
+		this.stoneProductionModifier = 1;
+		this.woodProductionModifier = 1;
+		this.iqProductionModifier = 1;
 	}
 
 	get military() {
