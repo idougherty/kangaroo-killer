@@ -1,3 +1,3 @@
-$('.popover-dismiss').popover({
-  trigger: 'focus'
-})
+$(".popover-dismiss").popover({
+	trigger: "focus"
+});
