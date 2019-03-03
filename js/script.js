@@ -321,28 +321,19 @@ function updateStats() {
 	actionInfo.innerHTML = gameState.actionPoints;
 	if (gameState.selectedHex != null) {
 		var bname = g.Hexes[gameState.selectedHex].state.type;
-		var picID
-		if(bname == "farm"){
-			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569629617717268/farm.png";
-		} else if (bname == "factory") {
-			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569627201798169/factory.png";
-		} else if (bname == "simpleHousing"){
-			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551599898001408000/simplehouse.png";
-		} else if (bname == "superHousing"){
-			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551599895824302101/superhouse.png";
-		} else if (bname == "lumbermill"){
-			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569542531514368/lumbermill.png";
-		} else if (bname == "barracks"){
-			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569534838898693/barrach.png";
-		} else if (bname == "school"){
-			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569539629056002/school.png";
-		} else if (bname == "university"){
-			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569529386303524/university.png";
-		} else if (bname == "cityHall"){
-			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569704326660100/city_hall_building.png";
-		} else if (bname == "nuclearFacilities"){
-			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551726405772247040/nukenukenuke.png";
-		}
+		var picID = {
+			farm: "./assets/farm.png",
+			factory: "./assets/factory",
+			simpleHousing: "./assets/simplehouse.png",
+			superHousing: "./assets/superhouse.png",
+			mill:	"./assets/lumbermill.png",
+			barracks: "./assets/barrach.png",
+			school:	"./assets/school.png",
+			university:	"./assets/university.png",
+			cityHall: "./assets/city_hall_building.png",
+			nuclearFacilities: "./assets/nukenukenuke.png",
+			mine: "./assets/mine.png"
+		}[bname];
 		buildingPic.src = picID
 		if(bname == "none" || bname == "simpleHousing" || bname == "superHousing") {
 			cityHallWindow.style.visibility = "hidden";
