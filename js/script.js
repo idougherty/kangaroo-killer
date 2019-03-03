@@ -1,5 +1,6 @@
 var canvas = document.getElementById("canvas");
 var c = canvas.getContext("2d");
+var flag = 0;
 woodInfo = document.getElementById("wood");
 metalInfo = document.getElementById("metal");
 stoneInfo = document.getElementById("stone");
@@ -16,6 +17,8 @@ unemployedInfo = document.getElementById("unemployed");
 workerWindow = document.getElementById("workerWindow");
 cityHallWindow = document.getElementById("cityHallWindow");
 statlist = document.getElementById("statlist");
+modal = document.getElementById("modal-body");
+buildingPic = document.getElementById("buildingPic");
 
 const events = [
 	"whale",
@@ -57,7 +60,7 @@ function runTurn() {
 		switch (hex.state.type) {
 			case "farm":
 				gameState.food +=
-					((5 * hex.state.workers) / 3) *
+					((10 * hex.state.workers) / 3) *
 					gameState.foodProductionModifier *
 					gameState.productionModifier;
 				break;
@@ -101,7 +104,9 @@ function runTurn() {
 				gameState.population += 3;
 				break;
 			case "nuclearFacilities":
-				// TODO: win something
+				if(hex.state.workers >= 1) {
+					flag = 1;
+				}
 				break;
 			case "none":
 				break;
@@ -131,13 +136,18 @@ function runTurn() {
 	gameState.productionModifier = 1;
 
 	gameState.extraMilitary = Math.max(0, gameState.extraMilitary - 10);
-
+	if (flag == 0){
+		modal.innerHTML = "Nothing exciting happens this turn.";
+	} else {
+		modal.innerHTML = "VICTORY!  New Zealand is no more!";
+	}
 	const rand = Math.random();
 	let impChance = 1;
 	if (gameState.govt === "anarchy") impChance += 1;
 	if (rand * 100 <= impChance) {
 		// imperialism
 		if (!fightBadEv(25)) {
+			modal.innerHTML = "The British Empire wants to do imperialism!  25 percent of wood, food, stone, metal, IQ, population, and military is lost unless military is at least 25 strong.";
 			gameState.population *= 0.5;
 			gameState.food *= 0.5;
 			gameState.wood *= 0.5;
@@ -152,36 +162,46 @@ function runTurn() {
 		switch (ev) {
 			case "whale":
 				if (!fightBadEv(10)) gameState.food *= 0.75;
+				modal.innerHTML = "Whales with baby legs come and try to devour your food supply!  25 percent of food is lost, unless military is 10 at least strong.";
 				break;
 			case "acid":
 				if (!fightBadEv(10)) gameState.stone *= 0.75;
+				modal.innerHTML = "Acid-spitting kangaroos try to melt all of your stone!  25 percent of stone is lost, unless military is at least 10 strong.";
 				break;
 			case "steroid":
 				if (!fightBadEv(10)) gameState.metal *= 0.75;
+				modal.innerHTML = "Emus on steroids come to steal your metal in order to make more weights!  25 percent of metal is lost, unless military is at least 10 strong.";
 				break;
 			case "antivax":
 				if (!fightBadEv(10)) {
 					gameState.iq *= 0.85;
 					gameState.population *= 0.85;
+					modal.innerHTML = "Anti-vax parents attack the schools and universities in order to stop their children from evil vaccinations!  15 percent of population and 15 percent of IQ is lost unless military is at least 10 strong.";
 				}
 				break;
 			case "termites":
 				if (!fightBadEv(10)) gameState.wood *= 0.75;
+				modal.innerHTML = "Giant termites come with a desire to eat wood!  25 percent of wood is lost unless military is at least 10 strong.";
 				break;
 			case "badhawk":
 				if (!fightBadEv(1) && gameState.population) gameState.population -= 1;
+				modal.innerHTML = "An evil hawk tries to attack your people!  1 person dies unless military is at least 1 strong.";
 				break;
 			case "prisoners":
 				gameState.population *= 1.15;
+				modal.innerHTML = "A bunch of prisoners come to 'live' in Australia!  Population increases by 15 percent.";
 				break;
 			case "meth":
 				gameState.productionModifier = 1.25;
+				modal.innerHTML = "A lot of meth washes up on the beach and makes people happy!  25 percent increase in food, metal, IQ, wood, and stone.";
 				break;
 			case "patriotism":
 				gameState.extraMilitary += 30;
+				modal.innerHTML = "People find an American flag or something.  Temporary 30 military for the next 3 turns (decreases by 10 each turn).";
 				break;
 			case "goodhawk":
 				gameState.iq += 1;
+				modal.innerHTML = "A good hawk inspires your people!  IQ increases by 1.";
 				break;
 			default:
 				throw new Error("event not implemented");
@@ -228,16 +248,10 @@ function updateStats() {
 	woodInfo.innerHTML = gameState.wood;
 	metalInfo.innerHTML = gameState.metal;
 	iqInfo.innerHTML = gameState.iq;
-	statlist.innerHTML =
-		'<li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters"><h3>Civilization</h3></li><li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Turn - ' +
-		gameState.turnCount +
-		'</li><li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Population - ' +
-		gameState.population +
-		'</li><li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Military - ' +
-		gameState.military +
-		'</li><li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-repeat="i in filters">Government - ' +
-		gameState.govt +
-		"</li>";
+	populationInfo.textContent = gameState.population;
+	turnInfo.textContent = gameState.turnCount;
+	militaryInfo.textContent = gameState.military;
+	govInfo.textContent = gameState.military;
 
 	if (gameState.militaryModifier != 1) {
 		statlist +=
@@ -291,11 +305,30 @@ function updateStats() {
 	actionInfo.innerHTML = gameState.actionPoints;
 	if (gameState.selectedHex != null) {
 		var bname = g.Hexes[gameState.selectedHex].state.type;
-		if (
-			bname == "none" ||
-			bname == "simpleHousing" ||
-			bname == "superHousing"
-		) {
+		var picID
+		if(bname == "farm"){
+			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569629617717268/farm.png";
+		} else if (bname == "factory") {
+			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569627201798169/factory.png";
+		} else if (bname == "simpleHousing"){
+			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551599898001408000/simplehouse.png";
+		} else if (bname == "superHousing"){
+			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551599895824302101/superhouse.png";
+		} else if (bname == "lumbermill"){
+			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569542531514368/lumbermill.png";
+		} else if (bname == "barracks"){
+			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569534838898693/barrach.png";
+		} else if (bname == "school"){
+			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569539629056002/school.png";
+		} else if (bname == "university"){
+			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569529386303524/university.png";
+		} else if (bname == "cityHall"){
+			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551569704326660100/city_hall_building.png";
+		} else if (bname == "nuclearFacilities"){
+			picID = "https://cdn.discordapp.com/attachments/551553979465728010/551726405772247040/nukenukenuke.png";
+		}
+		buildingPic.src = picID
+		if(bname == "none" || bname == "simpleHousing" || bname == "superHousing") {
 			cityHallWindow.style.visibility = "hidden";
 			cityHallWindow.style.position = "absolute";
 			workerWindow.style.visibility = "hidden";
@@ -431,36 +464,6 @@ function drawHex(/* HT.Hexagon */ hex) {
 	}
 
 	c.stroke();
-
-	if (false && hex.Id) {
-		//draw text for debugging
-		c.fillStyle = "black";
-		c.font = "bolder 8pt Trebuchet MS,Tahoma,Verdana,Arial,sans-serif";
-		c.textAlign = "center";
-		c.textBaseline = "middle";
-		//var textWidth = c.measureText(hex.Planet.BoundingHex.Id);
-		c.fillText(hex.Id, hex.MidPoint.X, hex.MidPoint.Y);
-	}
-
-	if (
-		false &&
-		hex.PathCoOrdX !== null &&
-		hex.PathCoOrdY !== null &&
-		typeof hex.PathCoOrdX != "undefined" &&
-		typeof hex.PathCoOrdY != "undefined"
-	) {
-		//draw co-ordinates for debugging
-		c.fillStyle = "black";
-		c.font = "bolder 8pt Trebuchet MS,Tahoma,Verdana,Arial,sans-serif";
-		c.textAlign = "center";
-		c.textBaseline = "middle";
-		//var textWidth = c.measureText(hex.Planet.BoundingHex.Id);
-		c.fillText(
-			"(" + hex.PathCoOrdX + "," + hex.PathCoOrdY + ")",
-			hex.MidPoint.X,
-			hex.MidPoint.Y + 10
-		);
-	}
 }
 
 class GameState {
