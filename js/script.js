@@ -1,6 +1,5 @@
 var canvas = document.getElementById("canvas");
 var c = canvas.getContext("2d");
-//13 12
 
 const events = ["whale", "acid", "steroid", "antivax", "termites", "imperialism", "badhawk", "prisoners", "meth", "patriotism", "goodhawk"];
 
@@ -216,7 +215,6 @@ CellState.prototype.click = function(id) {
 canvas.addEventListener("click", ({ layerX, layerY }) => {
 	var idx = g.GetHexIdxAt(new HT.Point(layerX, layerY));
 	var hex = g.Hexes[idx];
-	alert(idx)
 	if (hex) hex.state.click(idx);
 	draw();
 });
