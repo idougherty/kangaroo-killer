@@ -227,7 +227,7 @@ var activeHexes = g.Hexes.filter((_hex, idx) => map.includes(idx));
 
 g.Hexes.forEach((_hex, i) => {
 	if (!map.includes(i)) {
-		delete g.Hexes[i]
+		// delete g.Hexes[i]
 	}
 });
 
